@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Check Out') {
+            steps {
+                git 'https://github.com/gmansoain/<your_repo>'
+            }
+        }
+        
+        stage('Build and Publish to Exchange'){
+            steps{
+                sh 'cd /var/jenkins_home/workspace/<your_app> && mvn clean deploy'
+            }
+        }
+        
+        stage('Deploy to CH2.0'){
+            steps{
+                sh 'cd /var/jenkins_home/workspace/<your_app> && mvn deploy -DmuleDeploy -Denv=dev -Dapi.layer=<Experience/Process/System/Backend/None> -Dusername=gonmule -Dpassword=Scipio235ac! -Dclient_id=6cf41b1f668642ed971f4c9268e440b9 -Dclient_secret=5f10d50bc9EC44F08F51b736Ec837d3D'
+            }
+        }
+}
+}

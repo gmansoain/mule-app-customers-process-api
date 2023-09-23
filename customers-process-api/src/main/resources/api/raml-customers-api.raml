@@ -1,0 +1,133 @@
+#%RAML 1.0
+title: RAML-Customers-API
+mediaType: 
+- application/json
+types:
+  Address: !include datatypes/Address.raml
+  Customer: !include datatypes/Customer.raml
+  CustomerNoID: !include datatypes/CustomerNoID.raml
+  Order: !include datatypes/Order.raml
+  OrderNoID: !include datatypes/OrderNoID.raml
+  Product: !include datatypes/Product.raml
+
+/customers:          
+  post:
+    body:
+      type: CustomerNoID        
+    responses:
+      201:
+        body:
+          application/json:
+            properties:
+              statusCode: string
+              message: string
+            example:
+              statusCode: "201"
+              message: "Customer successfully created"
+      400:
+        description: Bad request        
+    
+/customers/{customerId}:
+  get:
+    responses:
+      200:
+        body:
+          type: Customer
+      400:
+        description: Bad request
+      404:
+        description: Customer not found
+  put:
+    body:
+      application/json:
+        example: |
+          {
+            "firstName": "Francesca",
+            "lastName": "Marcos",
+            "email": "francesca@gmail.com"
+          }
+    responses:
+      200:
+        description: Customer details updated successfully
+        body:
+          application/json:
+            properties:
+              statusCode: string
+              message: string
+            example:
+              statusCode: "201"
+              message: "Customer details successfully updated"
+      400:
+        description: Bad request
+      404:
+        description: Customer not found
+  delete:
+    responses:
+      200:
+        description: Customer deleted successfully
+      400:
+        description: Bad request
+      404:
+        description: Customer not found
+
+
+/customers/{customerId}/orders:
+  post:
+    body:
+      type: Order
+    responses:
+      201:
+        body:
+          application/json:
+            properties:
+              statusCode: string
+              message: string
+            example:
+              statusCode: "201"
+              message: "Order successfully created"
+      400:
+        description: Bad request
+
+/orders/{orderId}:
+  get:
+    responses:
+      200:
+        body:
+          type: Order
+      400:
+        description: Bad request
+      404:
+        description: Order not found
+  put:
+    body:
+      application/json:
+        example: |
+          {
+            "totalAmount": 4,
+            "status": "Delivered"
+          }
+    responses:
+      201:
+        body:
+          application/json:
+            properties:
+              statusCode: string
+              message: string
+            example:
+              statusCode: "201"
+              message: "Order successfully updated"
+      400:
+        description: Bad request
+      404:
+        description: Order not found
+
+/search:
+  get:
+    queryParameters:
+      name: string
+    responses:
+      200:
+        body:
+         type: [Product]
+      
+    

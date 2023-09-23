@@ -1,0 +1,13 @@
+#%RAML 1.0 DataType
+type: object
+properties:
+  customer_id: integer
+  firstName: string
+  lastName: string
+  email: string
+  phone?: string
+  birthdate?: string
+  mailingAddress?: !include Address.raml
+  orders?: array
+example: !include ../examples/CustomerExample1.raml
+    

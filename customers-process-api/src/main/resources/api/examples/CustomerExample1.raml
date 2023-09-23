@@ -1,0 +1,31 @@
+#%RAML 1.0 NamedExample
+value:
+  customer_id: 1
+  firstName: "Gonzalo"
+  lastName: "Marcos"
+  email: "gmarcos@salesforce.com"
+  phone?: "444-555-111"
+  birthdate?: "16/05/1981"
+  mailingAddress:
+    street: "Via Cesare Balbo 2"
+    city: "Torino"
+    state: "Piemonte"
+    postalCode: "56788"
+    country: "Italy"
+  orders:
+    - order_id: "12345"
+      order_date: "2023-09-15"
+      product:
+        product_id: 1
+        product_name: "Product A"
+        unit_price: 19.99
+        in_stock: 20
+        description: "High-quality product A"
+      total_amount: 5
+      status: "Shipped"
+    - order_id: "2"
+      order_date: "2023-09-17"
+      total_amount: 3
+      in_stock: 100
+      status: "Pending"
+    
